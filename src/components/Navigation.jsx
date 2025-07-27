@@ -30,19 +30,19 @@ export default function Navigation({ onOpenModal }) {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <a
-                href="#features"
+                href="/#features"
                 className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Features
               </a>
               <a
-                href="#how-it-works"
+                href="/#how-it-works"
                 className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
               >
                 How It Works
               </a>
               <a
-                href="#pricing"
+                href="/#pricing"
                 className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Pricing
@@ -61,7 +61,7 @@ export default function Navigation({ onOpenModal }) {
                 <span>Sample Reports</span>
               </a>
               <a
-                href="#faq-section"
+                href="/#faq-section"
                 className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
               >
                 FAQ
@@ -98,7 +98,7 @@ export default function Navigation({ onOpenModal }) {
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
               <a
-                href="#features"
+                href="/#features"
                 className="text-gray-700 hover:text-gray-900 block px-3 py-2 text-base font-medium transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -112,7 +112,7 @@ export default function Navigation({ onOpenModal }) {
                 How It Works
               </a>
               <a
-                href="#pricing"
+                href="/#pricing"
                 className="text-gray-700 hover:text-gray-900 block px-3 py-2 text-base font-medium transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -130,7 +130,7 @@ export default function Navigation({ onOpenModal }) {
                 <span>Sample Reports</span>
               </button>
               <a
-                href="#faq-section"
+                href="/#faq-section"
                 className="text-gray-700 hover:text-gray-900 block px-3 py-2 text-base font-medium transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >

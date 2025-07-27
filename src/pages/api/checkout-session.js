@@ -14,11 +14,40 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: "Session ID is required" })
     }
 
-    const session = await stripe.checkout.sessions.retrieve(session_id)
+    // Retrieve the checkout session
+    const session = await stripe.checkout.sessions.retrieve(session_id, {
+      expand: ["line_items", "line_items.data.price.product"],
+    })
 
-    res.json(session)
+    // Enhanced response with additional product information
+    const enhancedSession = {
+      ...session,
+      product_details: null,
+    }
+
+    // If this was a catalog-based purchase, get additional product details
+    if (session.metadata?.catalogUsed === "true" && session.metadata?.productId) {
+      try {
+        const product = await stripe.products.retrieve(session.metadata.productId)
+        enhancedSession.product_details = {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          images: product.images,
+          metadata: product.metadata,
+        }
+      } catch (productError) {
+        console.error("Error fetching product details:", productError)
+        // Don't fail the request if product details can't be fetched
+      }
+    }
+
+    res.json(enhancedSession)
   } catch (err) {
     console.error("Error retrieving session:", err)
-    res.status(500).json({ message: "Internal server error" })
+    res.status(500).json({
+      message: "Internal server error",
+      error: process.env.NODE_ENV === "development" ? err.message : undefined,
+    })
   }
 }

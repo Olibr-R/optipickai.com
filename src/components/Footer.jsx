@@ -217,7 +217,7 @@ export default function Footer({ onOpenModal }) {
           style={{ transitionDelay: "0.8s" }}
         >
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
-            <p className="text-gray-300 text-sm">© 2024 OptipickAI. All rights reserved.</p>
+            <p className="text-gray-300 text-sm">© 2025 OptipickAI. All rights reserved.</p>
             <div className="flex items-center space-x-2 text-sm text-gray-300">
               <span>Made with</span>
               <span className="text-red-500">♥</span>

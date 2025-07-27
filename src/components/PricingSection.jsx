@@ -2,22 +2,45 @@
 import { useState } from "react"
 import { CheckCircle, Star, Phone, Mail, Clock, FileText, Users, Zap, Crown } from "lucide-react"
 
-export default function PricingSection({ onOpenModal }) {
+export default function PricingSection({ onOpenModal, useProductCatalog = false }) {
   const [loading, setLoading] = useState(null)
+
+  // Product catalog mapping (your actual Stripe product IDs)
+  const productCatalogMap = {
+    "Decision Clarity": "prod_Sl1IttQQdpmFrh",
+    "Strategic Advantage": "prod_Sl3MUfrfm9JXmq",
+  }
+
+  // Legacy pricing map (preserved for existing functionality)
+  const legacyPricingMap = {
+    "Decision Clarity": "price_starter_plan",
+    "Strategic Advantage": "price_professional_plan",
+  }
 
   const handleCheckout = async (priceId, planName) => {
     setLoading(planName)
     try {
+      // Determine which approach to use
+      let finalPriceId = priceId
+      let useCatalog = false
+
+      if (useProductCatalog && productCatalogMap[planName]) {
+        finalPriceId = productCatalogMap[planName]
+        useCatalog = true
+      }
+
       const response = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          priceId,
+          priceId: finalPriceId,
           planName,
+          useProductCatalog: useCatalog,
         }),
       })
+
       const { url } = await response.json()
       if (url) {
         window.location.href = url
@@ -35,7 +58,6 @@ export default function PricingSection({ onOpenModal }) {
     >
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10"></div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -50,7 +72,6 @@ export default function PricingSection({ onOpenModal }) {
             Get AI-powered decision analysis when you need it most, and save on your plan.
           </p>
         </div>
-
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Starter Plan */}
@@ -63,13 +84,12 @@ export default function PricingSection({ onOpenModal }) {
               <div className="text-sm text-slate-600 font-medium mb-4">STARTER PLAN</div>
               <div className="flex items-baseline mb-4">
                 <span className="text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
-                  $407
+                  $497
                 </span>
                 <span className="text-slate-600 ml-1">/mo</span>
               </div>
               <p className="text-slate-600 font-light">Perfect for small businesses getting started</p>
             </div>
-
             <div className="mb-8">
               <ul className="space-y-4">
                 <li className="flex items-start">
@@ -96,7 +116,6 @@ export default function PricingSection({ onOpenModal }) {
                 </li>
               </ul>
             </div>
-
             <button
               onClick={() => handleCheckout("price_starter_plan", "Decision Clarity")}
               disabled={loading === "Decision Clarity"}
@@ -114,7 +133,6 @@ export default function PricingSection({ onOpenModal }) {
                 MOST POPULAR
               </div>
             </div>
-
             <div className="mb-8">
               <div className="flex items-center mb-4">
                 <Star className="w-6 h-6 text-blue-600 mr-2" />
@@ -123,13 +141,12 @@ export default function PricingSection({ onOpenModal }) {
               <div className="text-sm text-slate-600 font-medium mb-4">PROFESSIONAL PLAN</div>
               <div className="flex items-baseline mb-4">
                 <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  $497
+                  $1,497
                 </span>
                 <span className="text-slate-600 ml-1">/mo</span>
               </div>
               <p className="text-slate-600 font-light">Ideal for growing businesses</p>
             </div>
-
             <div className="mb-8">
               <ul className="space-y-4">
                 <li className="flex items-start">
@@ -166,7 +183,6 @@ export default function PricingSection({ onOpenModal }) {
                 </li>
               </ul>
             </div>
-
             <button
               onClick={() => handleCheckout("price_professional_plan", "Strategic Advantage")}
               disabled={loading === "Strategic Advantage"}
@@ -191,7 +207,6 @@ export default function PricingSection({ onOpenModal }) {
               </div>
               <p className="text-slate-300 font-light">For enterprise-level decision making</p>
             </div>
-
             <div className="mb-8">
               <ul className="space-y-4">
                 <li className="flex items-start">
@@ -220,7 +235,6 @@ export default function PricingSection({ onOpenModal }) {
                 </li>
               </ul>
             </div>
-
             <button
               disabled
               className="w-full bg-slate-700 text-slate-400 py-3 px-4 rounded-xl font-semibold cursor-not-allowed"
@@ -229,8 +243,6 @@ export default function PricingSection({ onOpenModal }) {
             </button>
           </div>
         </div>
-
-    
       </div>
     </section>
   )
