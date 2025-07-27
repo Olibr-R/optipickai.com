@@ -1,5 +1,5 @@
 const stripe = require("stripe")(
-  "sk_test_51Rmxyu4G7EqJTNUav8cKrf9zVB9c3zNYMwF5upMDxe8PT2RExEhWwauLHvZatNpXa0B9Q2bVvrYSq3zEv2V7wILW00XHkCtcPF",
+  "pk_live_51RmxyiKanSNQZ3FD0TrisMDVD9R2ikt5qsNOXz70S8Wd8xHEpOJ3Svl7uobW2Mc882iTXoepIK71KX009T2QcOv10049SaDoNh",
 )
 
 export default async function handler(req, res) {
