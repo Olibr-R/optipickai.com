@@ -1,7 +1,7 @@
 import { buffer } from "micro"
 
 const stripe = require("stripe")(
-  "pk_live_51RmxyiKanSNQZ3FD0TrisMDVD9R2ikt5qsNOXz70S8Wd8xHEpOJ3Svl7uobW2Mc882iTXoepIK71KX009T2QcOv10049SaDoNh",
+  "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",
 )
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
