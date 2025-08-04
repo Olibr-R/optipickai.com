@@ -121,8 +121,7 @@ export default function Navigation({ onOpenModal }) {
               <button
                 className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 w-full text-left px-3 py-2 text-base font-medium transition-colors"
                 onClick={() => {
-                  // Add your sample reports functionality here
-                  console.log("Sample Reports clicked")
+                  router.push("/sample-reports")
                   setIsMobileMenuOpen(false)
                 }}
               >
