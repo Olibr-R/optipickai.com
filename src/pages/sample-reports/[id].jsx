@@ -256,10 +256,9 @@ export default function ReportDetail() {
                 </div>
 
                 {/* Download Button */}
-                {console.log("ss",id)}
                 <a
-                  href={id=="patient-monitoring-strategy"?"/Patient_Monitoring_Report.docx":"#-"}
-                  download={id=="patient-monitoring-strategy"?true:false}
+                  href={report?.downloadLink?window.location.origin + "/" + report.downloadLink :  "#-"}
+                  download={report?.downloadLink?true:false}
                   className="w-full flex items-center justify-center px-4 py-3 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors"
                 >
                   <Download className="w-4 h-4 mr-2" />
